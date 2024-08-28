@@ -13,22 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#!/bin/bash
+# Copyright 2023 The Karmada Authors.
+# Licensed under the Apache License, Version 2.0 (the "License");
 
 set -o errexit
 set -o nounset
 
-_tmp=$(mktemp -d)
+# Set the path to your local components.yaml file
+LOCAL_COMPONENTS_FILE=~/components.yaml
 
 function usage() {
   echo "This script will deploy metrics-server in member clusters."
   echo "Usage: hack/deploy-k8s-metrics-server.sh <MEMBER_CLUSTER_KUBECONFIG> <MEMBER_CLUSTER_NAME>"
   echo "Example: hack/deploy-k8s-metrics-server.sh ~/.kube/members.config member1"
 }
-
-cleanup() {
-  rm -rf "${_tmp}"
-}
-trap "cleanup" EXIT SIGINT
 
 if [[ $# -ne 2 ]]; then
   usage
@@ -52,9 +51,8 @@ then
 fi
 MEMBER_CLUSTER_NAME=$2
 
-# get deploy yaml
-wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.6.3/components.yaml -O "${_tmp}/components.yaml"
-sed -i'' -e 's/args:/args:\n        - --kubelet-insecure-tls=true/' "${_tmp}/components.yaml"
+# Use the local components.yaml file instead of downloading
+# sed -i'' -e 's/args:/args:\n        - --kubelet-insecure-tls=true/' "${LOCAL_COMPONENTS_FILE}"
 
 # deploy metrics-server in member cluster
-kubectl --kubeconfig="${MEMBER_CLUSTER_KUBECONFIG}" --context="${MEMBER_CLUSTER_NAME}" apply -f "${_tmp}/components.yaml"
+kubectl --kubeconfig="${MEMBER_CLUSTER_KUBECONFIG}" --context="${MEMBER_CLUSTER_NAME}" apply -f "${LOCAL_COMPONENTS_FILE}"

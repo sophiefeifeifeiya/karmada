@@ -222,7 +222,6 @@ func init() {
 	controllers["serviceExport"] = startServiceExportController
 	controllers["endpointSlice"] = startEndpointSliceController
 	controllers["serviceImport"] = startServiceImportController
-	controllers["unifiedAuth"] = startUnifiedAuthController
 	controllers["federatedResourceQuotaSync"] = startFederatedResourceQuotaSyncController
 	controllers["federatedResourceQuotaStatus"] = startFederatedResourceQuotaStatusController
 	controllers["gracefulEviction"] = startGracefulEvictionController

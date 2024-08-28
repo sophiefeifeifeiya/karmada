@@ -424,6 +424,8 @@ func applyPlaintextObjectOverriders(rawObj *unstructured.Unstructured, plaintext
 	return nil
 }
 
+func determineFileType()
+
 func parseJSONPatchesByPlaintext(overriders []policyv1alpha1.PlaintextOverrider) []overrideOption {
 	patches := make([]overrideOption, 0, len(overriders))
 	for i := range overriders {

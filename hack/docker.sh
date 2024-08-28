@@ -76,6 +76,7 @@ function build_local_image() {
   set -x
   docker build --build-arg BINARY="${target}" \
           ${DOCKER_BUILD_ARGS} \
+          # --network host \
           --tag "${image_name}" \
           --file "${REPO_ROOT}/cluster/images/Dockerfile" \
           "${REPO_ROOT}/_output/bin/${platform}"

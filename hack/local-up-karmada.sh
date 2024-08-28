@@ -16,6 +16,7 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -x
 
 # This script starts a local karmada control plane based on current codebase and with a certain number of clusters joined.
 # Parameters: [HOST_IPADDRESS](optional) if you want to export clusters' API server port to specific IP address
@@ -156,6 +157,9 @@ kind load docker-image "${REGISTRY}/karmada-scheduler-estimator:${VERSION}" --na
 kind load docker-image "${REGISTRY}/karmada-aggregated-apiserver:${VERSION}" --name="${HOST_CLUSTER_NAME}"
 kind load docker-image "${REGISTRY}/karmada-search:${VERSION}" --name="${HOST_CLUSTER_NAME}"
 kind load docker-image "${REGISTRY}/karmada-metrics-adapter:${VERSION}" --name="${HOST_CLUSTER_NAME}"
+kind load docker-image "registry.k8s.io/etcd:3.5.13-0" --name="${HOST_CLUSTER_NAME}"
+kind load docker-image "registry.k8s.io/kube-apiserver:v1.29.6" --name="${HOST_CLUSTER_NAME}"
+kind load docker-image "registry.k8s.io/kube-controller-manager:v1.29.6" --name="${HOST_CLUSTER_NAME}"
 
 #step5. install karmada control plane components
 "${REPO_ROOT}"/hack/deploy-karmada.sh "${MAIN_KUBECONFIG}" "${HOST_CLUSTER_NAME}"
