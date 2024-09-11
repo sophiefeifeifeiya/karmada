@@ -1,0 +1,15 @@
+apiVersion: policy.karmada.io/v1alpha1
+kind: PropagationPolicy
+metadata:
+  name: example-propagation
+  namespace: default
+spec:
+  resourceSelectors:
+    - apiVersion: v1
+      kind: ConfigMap
+      name: myconfigmap
+  placement:
+    clusterAffinity:
+      clusterNames:
+        - member1
+        - member2

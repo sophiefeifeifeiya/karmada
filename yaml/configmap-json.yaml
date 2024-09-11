@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfigmap
+data:
+  test.json:  |
+    {"key": {"test": "value"}, "key1": "value"}

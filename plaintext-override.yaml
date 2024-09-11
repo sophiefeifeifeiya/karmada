@@ -1,0 +1,25 @@
+apiVersion: policy.karmada.io/v1alpha1
+kind: OverridePolicy
+metadata:
+  name: plaintext-override
+  namespace: default
+spec:
+  overrideRules:
+    - overriders:
+        plaintext:
+          - path: /data/test.json
+            operator: replace
+            value: |
+              {
+                "key": {
+                  "test": "value-plaintest-just",
+                  "key1": "new_value"
+                }
+              }
+      targetCluster:
+        clusterNames:
+          - member1
+  resourceSelectors:
+    - apiVersion: v1
+      kind: ConfigMap
+      name: myconfigmap

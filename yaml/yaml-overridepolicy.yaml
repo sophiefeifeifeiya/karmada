@@ -1,0 +1,31 @@
+apiVersion: policy.karmada.io/v1alpha1
+kind: OverridePolicy
+metadata:
+  name: yaml-override
+  namespace: default
+spec:
+  overrideRules:
+    - overriders:
+        plaintextObjectOverrider:
+          - path: /data/settings.yaml
+            plaintext:
+              - path: /app/mode
+                operator: remove
+              - path: /app/timeout
+                operator: replace
+                value: "60s"
+              - path: /app/retries
+                operator: add
+                value: "5"
+              - path: /features/logging
+                operator: add
+                value: "detailed"
+      targetCluster:
+        clusterNames:
+          - member1
+  resourceSelectors:
+    - apiVersion: v1
+      kind: ConfigMap
+      name: yaml-configmap
+      namespace: default
+  
