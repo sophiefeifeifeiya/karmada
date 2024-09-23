@@ -8,6 +8,7 @@
 | Check if the OverridePolicy will update the deployment's image value                                                                                    | deployment imageOverride testing        |                                                                                     |
 | Check if the OverridePolicy will update the pod's image value                                                                                           | pod imageOverride testing               |                                                                                     |
 | Check if the OverridePolicy will update the specific image value                                                                                        | deployment imageOverride testing        |                                                                                     |
+| Check if the OverridePolicy will update the value inside JSON or YAML                                                                                   | deployment fieldOverride testing        |                                                                                     |
 
 #### OverridePolicy with nil resourceSelector testing
 | Test Case                                                                                                                                               | E2E Describe Text                       | Comments                                                                            |
